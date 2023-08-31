@@ -3,6 +3,7 @@ package com.study.api.controller;
 import com.study.api.entity.Customer;
 import com.study.api.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ public class UserController {
     private final CustomerRepository repository;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER_NORMAL')")
     public List<Customer> findAll(){
         return repository.findAll();
     }

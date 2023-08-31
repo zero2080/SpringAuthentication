@@ -1,5 +1,6 @@
 package com.study.security;
 
+import com.study.security.filter.JwtFilter;
 import com.study.security.filter.LoginFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
   @Bean
-  public SecurityFilterChain httpSecurityBuilder(HttpSecurity http,LoginFilter loginFilter) throws Exception {
+  public SecurityFilterChain httpSecurityBuilder(HttpSecurity http, LoginFilter loginFilter, JwtFilter tokenFilter) throws Exception {
 
     return http
         .cors(CorsConfigurer::disable)
@@ -29,9 +30,8 @@ public class SecurityConfig {
         .formLogin(FormLoginConfigurer::disable)
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/api/admin/**").hasRole("ADMIN")
-            .requestMatchers("/api/user/**").hasRole("USER")
             .anyRequest().authenticated())
+        .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(loginFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
   }

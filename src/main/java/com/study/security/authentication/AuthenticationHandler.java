@@ -24,7 +24,7 @@ import java.util.Map;
 public class AuthenticationHandler implements AuthenticationSuccessHandler, AuthenticationFailureHandler {
 
   private final ObjectMapper objectMapper;
-//  private final JwtProvider tokenProvider;
+  private final JwtProvider tokenProvider;
 
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException{
@@ -35,10 +35,9 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler, Auth
     Customer principal = ((CustomerDetail)authentication.getPrincipal()).getAccount();
 
     Writer writer = response.getWriter();
-    writer.write(objectMapper.writeValueAsString(Map.of("message", "와우","account",principal)));
 
-//    Map<String,String> body = Map.of("accessToken", tokenProvider.generateToken(principal));
-//    writer.write(objectMapper.writeValueAsString(body));
+    Map<String,String> body = Map.of("accessToken", tokenProvider.generateToken(principal));
+    writer.write(objectMapper.writeValueAsString(body));
     writer.flush();
   }
 

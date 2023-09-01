@@ -23,7 +23,7 @@ public class CustomerRepository {
     repository.add(Customer.builder().loginId("test_"+i).id(i++).name("이나라").password(password).joinedAt(ZonedDateTime.now()).build());
     repository.add(Customer.builder().loginId("test_"+i).id(i++).name("손은희").password(password).joinedAt(ZonedDateTime.now()).build());
     repository.add(Customer.builder().loginId("test_"+i).id(i++).name("오유하").password(password).joinedAt(ZonedDateTime.now()).build());
-    repository.add(Customer.builder().loginId("test_"+i).id(i++).name("오오오오").password(password).joinedAt(ZonedDateTime.now()).build());
+    repository.add(Customer.builder().loginId("test_"+i).id(i++).name("오오오").password(password).joinedAt(ZonedDateTime.now()).build());
     repository.add(Customer.builder().loginId("test_"+i).id(i).name("대애박").password(password).joinedAt(ZonedDateTime.now()).build());
   }
 
